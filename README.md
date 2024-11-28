@@ -138,15 +138,14 @@ Cada veículo armazenado possui os seguintes atributos:
 ==============================================================
                        MENU PRINCIPAL
 ==============================================================
-1. Inclusão de Veículo
-2. Listagem de Veículos
-3. Modificar Dados de Veículo
-4. Listagem Parcial por Cor
-5. Listagem Parcial por Marca
-6. Remoção de Veículo
-7. Consultar Veículo por Renavam
-8. Estatísticas de Veículos
-99. Sair
+1. Adicionar Veículo
+2. Atualizar Dados de Veículo
+3. Listar Todos os Veículos
+4. Listar Veículos por Cor
+5. Listar Veículos por Marca
+6. Consultar Veículo por Renavam
+7. Remover Veículo
+8. Sair
 --------------------------------------------------------------
 Escolha uma opção:
 ```

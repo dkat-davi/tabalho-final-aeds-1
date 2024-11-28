@@ -20,8 +20,8 @@ void mostrarMenu()
     printf("                       MENU PRINCIPAL                        \n");
     printf("==============================================================\n");
     printf("1. Adicionar Veículo\n");
-    printf("2. Listar Veículos\n");
-    printf("3. Atualizar Dados de Veículo\n");
+    printf("2. Atualizar Dados de Veículo\n");
+    printf("3. Listar Todos os Veículos\n");
     printf("4. Listar Veículos por Cor\n");
     printf("5. Listar Veículos por Marca\n");
     printf("6. Consultar Veículo por Renavam\n");
@@ -192,7 +192,22 @@ void atualizarVeiculo(struct Veiculo veiculos[], int contador)
             scanf("%lf", &veiculoParaAtualizar->preco);
             break;
         case 6:
-            printf("Atualizar todos");
+            printf("=> Digite o nome do proprietário atualizado (máximo 50 caracteres): ");
+            getchar();
+            fgets(veiculoParaAtualizar->nomeProprietario, 50, stdin);
+            veiculoParaAtualizar->nomeProprietario[strcspn(veiculoParaAtualizar->nomeProprietario, "\n")] = '\0';
+
+            printf("=> Digite o ano de fabricação atualizado: ");
+            scanf("%d", &veiculoParaAtualizar->anoFabricacao);
+
+            printf("=> Digite a cor do veículo atualizada (3 caracteres): ");
+            scanf("%s", veiculoParaAtualizar->cor);
+
+            printf("=> Digite a marca do veículo atualizada (4 caracteres): ");
+            scanf("%s", veiculoParaAtualizar->marca);
+
+            printf("=> Digite o preço de compra atualizado: ");
+            scanf("%lf", &veiculoParaAtualizar->preco);
             break;
         case 7:
             printf("\n              ATUALIZAÇÃO CANCELADA COM SUCESSO!              \n");
@@ -202,6 +217,13 @@ void atualizarVeiculo(struct Veiculo veiculos[], int contador)
             printf("\n                OPÇÃO INVÁLIDA, TENTE NOVAMENTE!              \n");
             printf("\n==============================================================\n");
             break;
+        }
+
+        if (opcao >= 1 && opcao <= 6)
+        {
+            printf("\n==============================================================\n");
+            printf("\n                VEÍCULO ATUALIZADO COM SUCESSO!              \n");
+            printf("\n==============================================================\n");
         }
     }
 }
@@ -213,7 +235,7 @@ void filtrarVeiculosPorCor(struct Veiculo veiculos[], int contador)
 
     limparTela();
     printf("==============================================================\n");
-    printf("                   BUSCAR VEÍCULOs POR COR                    \n");
+    printf("                   BUSCAR VEÍCULOS POR COR                    \n");
     printf("==============================================================\n");
 
     printf("Digite a cor do veículo que deseja buscar: ");
@@ -253,7 +275,7 @@ void filtrarVeiculosPorMarca(struct Veiculo veiculos[], int contador)
 
     limparTela();
     printf("==============================================================\n");
-    printf("                  BUSCAR VEÍCULOs POR MARCA                    \n");
+    printf("                  BUSCAR VEÍCULOS POR MARCA                    \n");
     printf("==============================================================\n");
 
     printf("Digite a marca do veículo que deseja buscar: ");
@@ -311,8 +333,8 @@ void filtrarVeiculoPorRenavam(struct Veiculo veiculos[], int contador)
     if (encontrado == -1)
     {
         printf("\n==============================================================\n");
-        printf("           🚨 Veículo com Renavam %d não encontrado! 🚨       \n", numeroRenavam);
-        printf("==============================================================\n");
+        printf("\n       🚨 Veículo com Renavam %d não encontrado! 🚨            \n", numeroRenavam);
+        printf("\n==============================================================\n");
     }
     else
     {
@@ -341,7 +363,7 @@ void removerVeiculo(struct Veiculo veiculos[], int *contador)
     printf("                         APAGAR VEÍCULO                       \n");
     printf("==============================================================\n");
 
-    printf("Digite o Renavam do veículo que deseja buscar: ");
+    printf("Digite o Renavam do veículo que deseja remover: ");
     scanf("%d", &renavam);
 
     printf("==============================================================\n");
@@ -375,28 +397,34 @@ void removerVeiculo(struct Veiculo veiculos[], int *contador)
 
 void sair()
 {
+    limparTela();
+    printf("\n==============================================================\n");
+    printf("\n                  ✅ PROGRAMA FINALIZADO ✅                  \n");
+    printf("\n==============================================================\n");
+    printf("\n                 DAVI KALEL ANDRADE TEIXEIRA                  \n");
+    printf("               AEDS I - 2024/2 - UNIMONTES/MOC               \n");
+    printf("\n==============================================================\n");
     printf("\n");
-    printf("============================================\n");
-    printf("         ✅ PROGRAMA FINALIZADO ✅         \n");
-    printf("============================================\n");
-    printf("      Obrigado por usar nosso sistema!      \n");
-    printf("                 Até logo!                  \n");
-    printf("============================================\n");
-    printf("\n");
+}
+
+void opcaoInvalida()
+{
+    printf("\n==============================================================\n");
+    printf("\n               OPÇÃO INVÁLIDA, TENTE NOVAMENTE!               \n");
+    printf("\n==============================================================\n");
 }
 
 int main()
 {
     int opcao;
-    int count = 6;
+    int count = 5;
     struct Veiculo veiculos[MAX_VEICULOS] =
         {
             {123456789, "João Batista", 2015, "VRM", "FIAT", 35000.00},
             {987654321, "Davi Teixeira", 2020, "PRE", "HON", 200000.00},
             {123454839, "João Silva", 2015, "VRM", "FIAT", 25000.00},
             {678902342, "Maria Oliveira", 2019, "PRE", "FORD", 35000.00},
-            {111211122, "Carlos Pereira", 2018, "AZL", "VW", 30000.00},
-            {135794534, "Ana Costa", 2020, "AMA", "CHE", 32000.00}};
+            {111211122, "Carlos Pereira", 2018, "AZL", "VW", 30000.00}};
 
     do
     {
@@ -409,10 +437,10 @@ int main()
             adicionarVeiculo(veiculos, &count);
             break;
         case 2:
-            listarVeiculos(veiculos, count);
+            atualizarVeiculo(veiculos, count);
             break;
         case 3:
-            atualizarVeiculo(veiculos, count);
+            listarVeiculos(veiculos, count);
             break;
         case 4:
             filtrarVeiculosPorCor(veiculos, count);
@@ -427,21 +455,20 @@ int main()
             removerVeiculo(veiculos, &count);
             break;
         case 8:
-            limparTela();
             sair();
             break;
         default:
-            printf("Opção inválida. Tente novamente.\n");
+            opcaoInvalida();
         }
 
         if (opcao != 8)
         {
-            printf("\nPressione qualquer tecla para voltar ao menu...");
+            printf("\nPressione ENTER para voltar ao menu...");
             getchar();
             getchar();
             limparTela();
         }
-    } while (opcao != 9);
+    } while (opcao != 8);
 
     return 0;
 }
