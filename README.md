@@ -43,7 +43,7 @@ cd trabalho-final-aeds-1
 2. Compile o programa:
 
 ```bash
-gcc main.c -o /files/sistema-veiculos
+gcc main.c -o ./files/sistema-veiculos
 ```
 
 3. Execute o programa
