@@ -116,9 +116,94 @@ void listarVeiculos(struct Veiculo veiculos[], int contador)
     }
 }
 
-void atualizarVeiculo()
+void atualizarVeiculo(struct Veiculo veiculos[], int contador)
 {
-    printf("Você escolheu a opção de atualizar veículo");
+    int numeroRenavam;
+    int opcao;
+    int encontrado = -1;
+
+    limparTela();
+    printf("==============================================================\n");
+    printf("                   ATUALIZAR DADOS DE VEICULO                 \n");
+    printf("==============================================================\n");
+
+    printf("Digite o Renavam do veículo que deseja atualizar: ");
+    scanf("%d", &numeroRenavam);
+    printf("==============================================================\n");
+
+    for (int i = 0; i < contador; i++)
+    {
+        if (veiculos[i].renavam == numeroRenavam)
+        {
+            encontrado = i;
+            break;
+        }
+    }
+
+    if (encontrado == -1)
+    {
+
+        printf("\n        🚨 Veículo com Renavam %d não encontrado! 🚨         \n", numeroRenavam);
+        printf("\n==============================================================\n");
+    }
+    else
+    {
+        limparTela();
+        struct Veiculo *veiculoParaAtualizar = &veiculos[encontrado];
+        printf("\n==============================================================\n");
+        printf("                  DADOS PARA SEREM ATUALIZADOS                \n");
+        printf("==============================================================\n");
+        printf("------------------------   Veículo %d   ----------------------\n", encontrado + 1);
+        printf("=> Renavam: %d\n", veiculoParaAtualizar->renavam);
+        printf("1. Proprietário: %s\n", veiculoParaAtualizar->nomeProprietario);
+        printf("2. Ano de Fabricação: %d\n", veiculoParaAtualizar->anoFabricacao);
+        printf("3. Cor: %s\n", veiculoParaAtualizar->cor);
+        printf("4. Marca: %s\n", veiculoParaAtualizar->marca);
+        printf("5. Preço: R$ %.2lf\n", veiculoParaAtualizar->preco);
+        printf("6. Atualizar todos os dados\n");
+        printf("7. Cancelar atualização\n");
+        printf("==============================================================\n");
+        printf("Escolha uma opção para atualizar: ");
+        scanf("%d", &opcao);
+        printf("\n=================   ATUALIZAÇÃO DOS DADOS   ==================\n");
+
+        switch (opcao)
+        {
+        case 1:
+            printf("=> Digite o nome do proprietário atualizado (máximo 50 caracteres): ");
+            getchar();
+            fgets(veiculoParaAtualizar->nomeProprietario, 50, stdin);
+            veiculoParaAtualizar->nomeProprietario[strcspn(veiculoParaAtualizar->nomeProprietario, "\n")] = '\0';
+            break;
+        case 2:
+            printf("=> Digite o ano de fabricação atualizado: ");
+            scanf("%d", &veiculoParaAtualizar->anoFabricacao);
+            break;
+        case 3:
+            printf("=> Digite a cor do veículo atualizada (3 caracteres): ");
+            scanf("%s", veiculoParaAtualizar->cor);
+            break;
+        case 4:
+            printf("=> Digite a marca do veículo atualizada (4 caracteres): ");
+            scanf("%s", veiculoParaAtualizar->marca);
+            break;
+        case 5:
+            printf("=> Digite o preço de compra atualizado: ");
+            scanf("%lf", &veiculoParaAtualizar->preco);
+            break;
+        case 6:
+            printf("Atualizar todos");
+            break;
+        case 7:
+            printf("\n              ATUALIZAÇÃO CANCELADA COM SUCESSO!              \n");
+            printf("\n==============================================================\n");
+            break;
+        default:
+            printf("\n                OPÇÃO INVÁLIDA, TENTE NOVAMENTE!              \n");
+            printf("\n==============================================================\n");
+            break;
+        }
+    }
 }
 
 void filtrarVeiculosPorCor(struct Veiculo veiculos[], int contador)
@@ -327,7 +412,7 @@ int main()
             listarVeiculos(veiculos, count);
             break;
         case 3:
-            atualizarVeiculo();
+            atualizarVeiculo(veiculos, count);
             break;
         case 4:
             filtrarVeiculosPorCor(veiculos, count);
